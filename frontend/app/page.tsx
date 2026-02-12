@@ -51,8 +51,10 @@ export default function Home() {
     const fetchModelInfo = async () => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-        const res = await axios.get(`${apiUrl}/model/info`);
-        setModelInfos(res.data.models);
+        const res = await axios.get(`${apiUrl}/model/info`, {
+          headers: { 'ngrok-skip-browser-warning': 'true' }
+        });
+        setModelInfos(res.data?.models ?? []);
       } catch (err) {
         console.error("Failed to fetch model info", err);
       }
@@ -65,9 +67,13 @@ export default function Home() {
     setLoading(true);
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const res = await axios.post(`${apiUrl}/compare`, { text });
+      const res = await axios.post(`${apiUrl}/compare`, { text }, {
+        headers: { 'ngrok-skip-browser-warning': 'true' }
+      });
       // บังคับให้ Re-render ด้วยข้อมูลใหม่
-      setData(res.data);
+      if (res.data?.predictions) {
+        setData(res.data);
+      }
     } catch (err) {
       console.error(err);
       alert("Cannot connect to Backend!");
@@ -159,7 +165,7 @@ export default function Home() {
             <>
               {/* Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {data.predictions.map((model, index) => (
+                {data?.predictions?.map((model, index) => (
                   <div key={index} className="bg-white p-5 rounded-2xl shadow-sm border-t-4" style={{borderColor: getModelColor(model.model)}}>
                     <div className="flex justify-between items-start mb-4">
                       <div>

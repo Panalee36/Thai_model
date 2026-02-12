@@ -1,0 +1,49 @@
+# Node.js
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ML/AI Models (Large Files - DO NOT PUSH)
+backend/models/*.bin
+backend/models/*.pkl
+backend/models/*.pth
+backend/models/*.pt
+backend/models/my_thai_news_model/
+backend/models/xlm_roberta_thai_news/
+backend/results_temp/
+backend/results_xlmr/
+backend/tmp_trainer/
+
+# Data
+backend/data/*.csv
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Agent specific
+.agent/
+.gemini/
